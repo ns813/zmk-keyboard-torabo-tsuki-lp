@@ -5,6 +5,10 @@
  * 入れて GitHub Actions でビルドする前提のファイル。
  * chosen で physical_layout_s を選択し、各レイヤーは S の実キー44個分の
  * bindings のみを持つ (L 版 66 個から実在キーのみを抽出)。
+ * 実機確認 (2026-11-21): S は42スイッチ (左20/右22)。左下段の定義位置
+ * 34・35番 (L 版 index 55・56) はスイッチが無く、左親指は36・37番の2個。
+ * そのため Space は35番 (ダミー) と36番 (実キー) の両方に置き、
+ * Tab は37番 (実キー) に置く。左下段の実キーは 32・33・36・37番。
  * 元の 66 個版は keymap.keymap (Keymap-Editor 用) を参照。
  */
 
@@ -60,7 +64,7 @@
 &kp Q &kp W &kp E &mt LALT R &kp T &kp Y &mt LALT U &kp I &kp O &kp P
 &kp A &kp S &mt LCTRL D &mt LSHIFT F &lt 3 G &kp H &mt LSHIFT J &mt LCTRL K &kp L &kp BSPC
 &kp Z &kp X &kp C &kp V &kp B &mkp RCLK &kp RET &kp N &kp M &kp COMMA &kp DOT &kp RET
-&kp LGUI &kp LALT &kp LCTRL &lt 2 SPACE &lt 1 TAB &mkp LCLK &lt 1 MINUS &lt_mouse 2 LCLK &lt 3 GRAVE &kp LALT &kp LCTRL &kp ESC
+&kp LGUI &kp LALT &kp LCTRL &lt 2 SPACE &lt 2 SPACE &lt 1 TAB &lt 1 MINUS &lt_mouse 2 LCLK &lt 3 GRAVE &kp LALT &kp LCTRL &kp ESC
 #if defined(TORABO_TSUKI_LP_KSCAN_4_DIRECTION_SWITCH)
 &msc SCRL_UP &msc SCRL_DOWN &msc SCRL_LEFT &msc SCRL_RIGHT &mkp MCLK
 #elif defined(TORABO_TSUKI_LP_INPUT_HIRES_DIAL)
