@@ -3,3 +3,4 @@
 
 * _centralがついているuf2をトラックボールがついている方に、_peripheralを反対側に書き込んでください
 * キーマップはkeymap-editorおよびzmk-studioで編集できます
+* このフォークのキーマップは Keyball39 の配置を移植したもの（LP サイズS用、config/keymap.keymap）
