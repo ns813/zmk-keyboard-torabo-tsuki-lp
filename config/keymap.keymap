@@ -13,7 +13,9 @@
  */
 
 #include <behaviors.dtsi>
+#include <input/processors.dtsi>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/input_transform.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
@@ -144,6 +146,19 @@
 
             >;
         };
+    };
+};
+
+/* レイヤー3が出ている間はトラックボールをスクロール化する
+   (Keyball の「レイヤーキーを押している間ボールがスクロール」の仕様に
+    合わせた固定機能。エディタの編集対象ではない)
+   pointing_listener のレイヤー別 input-processors 上書き。
+   Y軸を反転して「ボールを奥に転がす = 上にスクロール」に合わせ、
+   速度は生の移動量の 1/5 に落とす */
+&pointing_listener {
+    scroller {
+        layers = <3>;
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 1 5>, <&zip_xy_to_scroll_mapper>;
     };
 };
 
