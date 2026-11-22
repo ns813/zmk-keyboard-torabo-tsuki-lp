@@ -33,13 +33,35 @@
 / {
     behaviors {
         /* タップ=マウスクリック、長押し=レイヤー のための hold-tap
-           (純正の &lt はタップ側にマウスボタンを置けないため) */
+           (純正の &ltb はタップ側にマウスボタンを置けないため) */
+        /* Keyball(QMK) の判定方式に寄せた hold-tap: balanced / 200ms
+           (QMK は TAPPING_TERM 未定義 = 既定 200ms、判定は離すタイミング基準。
+            ZMK 既定の hold-preferred は「他のキーを押した瞬間に長押し判定」になるため、
+            Keyball と同じ感覚にするには balanced が最も近い) */
+        ltb: ltb {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LTB";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "balanced";
+            bindings = <&mo>, <&kp>;
+        };
+
+        mtb: mtb {
+            compatible = "zmk,behavior-hold-tap";
+            label = "MTB";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+        };
+
         lt_mouse: lt_mouse {
             compatible = "zmk,behavior-hold-tap";
             label = "LT_MOUSE";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            flavor = "hold-preferred";
+            flavor = "balanced";
             bindings = <&mo>, <&mkp>;
         };
     };
@@ -61,10 +83,10 @@
            R/D/F/G などは Keyball と同じモッドタップ・レイヤータップ */
         layer_0 {
             bindings = <
-&kp Q &kp W &kp E &mt LALT R &kp T &kp Y &mt LALT U &kp I &kp O &kp P
-&kp A &kp S &mt LCTRL D &mt LSHIFT F &lt 3 G &kp H &mt LSHIFT J &mt LCTRL K &kp L &kp BSPC
+&kp Q &kp W &kp E &mtb LALT R &kp T &kp Y &mtb LALT U &kp I &kp O &kp P
+&kp A &kp S &mtb LCTRL D &mtb LSHIFT F &ltb 3 G &kp H &mtb LSHIFT J &mtb LCTRL K &kp L &kp BSPC
 &kp Z &kp X &kp C &kp V &kp B &mkp RCLK &kp RET &kp N &kp M &kp COMMA &kp DOT &kp RET
-&kp LGUI &kp LALT &kp LCTRL &lt 2 SPACE &lt 2 SPACE &lt 1 TAB &lt 1 MINUS &lt_mouse 2 LCLK &lt 3 GRAVE &kp LALT &kp LCTRL &kp ESC
+&kp LGUI &kp LALT &kp LCTRL &ltb 2 SPACE &ltb 2 SPACE &ltb 1 TAB &ltb 1 MINUS &lt_mouse 2 LCLK &ltb 3 GRAVE &kp LALT &kp LCTRL &kp ESC
 #if defined(TORABO_TSUKI_LP_KSCAN_4_DIRECTION_SWITCH)
 &msc SCRL_UP &msc SCRL_DOWN &msc SCRL_LEFT &msc SCRL_RIGHT &mkp MCLK
 #elif defined(TORABO_TSUKI_LP_INPUT_HIRES_DIAL)
